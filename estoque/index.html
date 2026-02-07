@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estoque Cloud Pro</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" href="icon.png">
+    <meta name="theme-color" content="#0a0a0a">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ESTOQUE CLOUD</h1>
+            <button class="btn-export" onclick="exportar()">RELATÓRIO TXT</button>
+        </header>
+
+        <div class="top-layout">
+            <div class="chart-box">
+                <canvas id="meuGrafico"></canvas>
+            </div>
+            <div class="management-box">
+                <div class="category-manager">
+                    <h3>CATEGORIAS</h3>
+                    <div class="input-group">
+                        <input type="text" id="new-cat" placeholder="Nova cat...">
+                        <button onclick="addCategory()">+</button>
+                    </div>
+                </div>
+                <div id="log-box"></div>
+            </div>
+        </div>
+
+        <div class="add-bar">
+            <div class="field">
+                <label>NOME DA PEÇA (NOME DA FOTO)</label>
+                <input type="text" id="n" placeholder="Ex: teclado">
+            </div>
+            <div class="field">
+                <label>CATEGORIA</label>
+                <select id="c"></select>
+            </div>
+            <div class="field">
+                <label>QTD</label>
+                <input type="number" id="q" value="1">
+            </div>
+            <button class="btn-add" onclick="add()">ADICIONAR PEÇA</button>
+        </div>
+
+        <div class="grid" id="g"></div>
+    </div>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
