@@ -1,0 +1,15 @@
+{
+  "name": "Estoque Industrial Pro",
+  "short_name": "Estoque",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#3a86ff",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
