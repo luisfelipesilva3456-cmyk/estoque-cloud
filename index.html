@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estoque Pro - Cloud</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo-area">
+            <h1>ESTOQUE <span class="badge">CLOUD</span></h1>
+            <p id="status-online">● SINCRONIZADO COM FIREBASE</p>
+        </div>
+        <div class="header-actions">
+            <button class="btn-excel" onclick="exportarExcel()">📊 BAIXAR PLANILHA</button>
+        </div>
+    </header>
+
+    <div class="dashboard-stats">
+        <div class="stat-card">Itens no Banco: <span id="total-itens">0</span></div>
+        <div class="stat-card warning">Estoque Crítico: <span id="total-critico">0</span></div>
+    </div>
+
+    <div class="top-layout">
+        <div class="chart-box">
+            <h3>DISTRIBUIÇÃO POR CATEGORIA</h3>
+            <canvas id="meuGrafico"></canvas>
+        </div>
+
+        <div class="management-box">
+            <div class="category-manager">
+                <h3>CATEGORIAS</h3>
+                <div class="input-group">
+                    <input type="text" id="new-cat" placeholder="Nova...">
+                    <button onclick="addCategory()">+</button>
+                </div>
+                <div id="filter-badges" class="filter-group"></div>
+            </div>
+            <div class="log-container">
+                <h3>LOG DE MOVIMENTAÇÕES</h3>
+                <div id="log-box"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-bar">
+        <input type="text" id="search-input" placeholder="🔍 Buscar no estoque compartilhado..." oninput="render()">
+        
+        <div class="panels-container">
+            <div class="add-bar">
+                <div class="field"><label>ENTRADA (CADASTRO)</label><input type="text" id="n" placeholder="Nome do Item"></div>
+                <div class="field"><label>SETOR</label><select id="c"></select></div>
+                <div class="field" style="flex:0.3"><label>QTD</label><input type="number" id="q" value="1"></div>
+                <button class="btn-add" onclick="add()">CADASTRAR</button>
+            </div>
+
+            <div class="add-bar" style="border-color: var(--danger);">
+                <div class="field"><label>SAÍDA (BAIXA)</label><select id="select-saida"></select></div>
+                <div class="field" style="flex:0.3"><label>QTD</label><input type="number" id="q-saida" value="1" min="1"></div>
+                <button class="btn-add" style="background: var(--danger);" onclick="registrarSaida()">DAR BAIXA</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid" id="g"></div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBcpviAl4uv8QisOAlgvuIgVbCEais_MQI",
+    authDomain: "estoque-pro-ee347.firebaseapp.com",
+    databaseURL: "https://estoque-pro-ee347-default-rtdb.firebaseio.com",
+    projectId: "estoque-pro-ee347",
+    storageBucket: "estoque-pro-ee347.firebasestorage.app",
+    messagingSenderId: "492567781340",
+    appId: "1:492567781340:web:f8df21310b77debb947919",
+    measurementId: "G-X3Y2NX38NZ"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // Expõe para o script.js
+  window.db = db;
+  window.dbRef = ref;
+  window.dbSet = set;
+  window.dbOnValue = onValue;
+</script>
+
+<script src="script.js"></script>
+</body>
+</html>
